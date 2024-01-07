@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IndexComponent } from "./post/index/index.component";
 
 @Component({
@@ -10,7 +10,7 @@ import { IndexComponent } from "./post/index/index.component";
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [CommonModule, RouterOutlet, GoogleMapsModule, IndexComponent]
+    imports: [CommonModule, RouterOutlet, GoogleMapsModule, IndexComponent, RouterModule]
 })
 export class AppComponent {
   title = 'my-angular-app';
