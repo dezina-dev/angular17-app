@@ -10,7 +10,12 @@ import { IndexComponent } from "./post/index/index.component";
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [CommonModule, RouterOutlet, GoogleMapsModule, IndexComponent, RouterModule]
+    imports: [
+      CommonModule, 
+      RouterOutlet, 
+      GoogleMapsModule, 
+      IndexComponent, 
+      RouterModule,]
 })
 export class AppComponent {
   title = 'my-angular-app';
