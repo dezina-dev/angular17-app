@@ -12,21 +12,24 @@ import { Post } from '../post';
   styleUrl: './index.component.css'
 })
 export class IndexComponent {
-posts: Post[] = [];
+  posts: Post[] = [];
 
-constructor(public postService: PostService) {}
+  constructor(public postService: PostService) { }
 
-ngOnInit(): void {
-  this.postService.getAll().subscribe((data: Post[]) => {
-    this.posts = data;
-    console.log('posts', this.posts)
-  })
-}
+  ngOnInit(): void {
 
-deletePost(id:number) {
-  this.postService.delete(id).subscribe(res => {
-    this.posts = this.posts.filter(item => item.id !== id);
-    console.log('Post deleted successfully!');
-  })
-}
+    setTimeout(() => {
+      this.postService.getAll().subscribe((data: Post[]) => {
+        this.posts = data;
+        console.log('posts', this.posts)
+      })
+    }, 1000)
+  }
+
+  deletePost(id: number) {
+    this.postService.delete(id).subscribe(res => {
+      this.posts = this.posts.filter(item => item.id !== id);
+      console.log('Post deleted successfully!');
+    })
+  }
 }

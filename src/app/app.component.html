@@ -58,22 +58,30 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a routerLink="/post/index" class="btn btn-primary">Posts</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="/examples/learn" class="nav-link" class="btn btn-primary">Learn angular 17</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="/examples/manage" class="nav-link" class="btn btn-primary">Manage</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="/examples/material-data" class="nav-link" class="btn btn-primary">Material UI</a>
-            </li>
+          @if(user) {
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              @for (route of privateRoutes; track route.id) {
+               <li class="nav-item">
+                <a routerLink={{route.route}} class="nav-link" class="btn btn-primary">{{route.title}}</a>
+               </li>
+              }
           </ul>
+           }@else {
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              @for (route of publicRoutes; track route.id) {
+               <li class="nav-item">
+                <a routerLink={{route.route}} class="nav-link" class="btn btn-primary">{{route.title}}</a>
+               </li>
+              }
+          </ul>
+           }
+          
           <span class="navbar-text">
-            Hello good day!
+            @if(user) {
+              <button type="button" class="btn btn-primary" (click)="onLogout()">
+               Logout
+              </button>
+            }
           </span>
         </div>
       </div>
