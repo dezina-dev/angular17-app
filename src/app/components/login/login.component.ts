@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit(): void {
@@ -38,25 +40,23 @@ export class LoginComponent {
   }
 
   submit() {
-    console.log('login submit', this.form.value);
-    console.log('this.form', this.form.value.email)
-    if (this.form.value.email && this.form.value.password) {
 
-      if (this.form.value.email === 'user@test.com' && this.form.value.password === 'test123') {
-        localStorage.setItem('user', this.form.value.email)
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000)
-        this.router.navigate(['/post/index']);
-      }
-    } else {
-      this.router.navigate(['/login']);
+    if (this.form.value.email === 'user@test.com' && this.form.value.password === 'test123') {
+      localStorage.setItem('user', this.form.value.email)
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
+      this.router.navigate(['/post/index']);
+      // this.postService.update(this.id, this.form.value).subscribe((res:any) => {
+      //   console.log('Post updated successfully!');
+      //   this.router.navigateByUrl('/post/index')
+      // }) this.router.navigateByUrl('/post/index')
     }
+    else {
 
-    // this.postService.update(this.id, this.form.value).subscribe((res:any) => {
-    //   console.log('Post updated successfully!');
-    //   this.router.navigateByUrl('/post/index')
-    // }) this.router.navigateByUrl('/post/index')
+      this.router.navigate(['/login']);
+      this.snackbarService.open("Error: Invalid login credentials", "error")
+    }
   }
 
 }
