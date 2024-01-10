@@ -66,9 +66,9 @@ export class AppComponent {
   onLogout() {
     console.log('logout');
     localStorage.removeItem('user')
-    setTimeout(() => {
-      window.location.reload()
-    }, 1000)
-    this.router.navigate(['/login'])
+    // setTimeout(() => {
+    //   window.location.reload()
+    // }, 1000)
+    this.router.navigateByUrl('/login')
   }
 }
