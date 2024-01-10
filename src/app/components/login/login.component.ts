@@ -43,10 +43,10 @@ export class LoginComponent {
 
     if (this.form.value.email === 'user@test.com' && this.form.value.password === 'test123') {
       localStorage.setItem('user', this.form.value.email)
-      setTimeout(() => {
-        window.location.reload()
-      }, 1000)
-      this.router.navigate(['/post/index']);
+      // setTimeout(() => {
+      //   window.location.reload()
+      // }, 1000)
+      this.router.navigateByUrl('/post/index')
       // this.postService.update(this.id, this.form.value).subscribe((res:any) => {
       //   console.log('Post updated successfully!');
       //   this.router.navigateByUrl('/post/index')
