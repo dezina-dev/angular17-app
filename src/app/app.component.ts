@@ -4,6 +4,12 @@ import { RouterOutlet } from '@angular/router';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IndexComponent } from "./post/index/index.component";
+import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
+import { Store, select } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import * as actions from '../app/store/actions/auth.actions';
+import { selectAuthState } from '../app/store/state/auth.state';
+import { AuthState } from './store/reducers/auth.reducer';
 
 export interface Routes {
   id: number;
@@ -26,25 +32,38 @@ export interface Routes {
 export class AppComponent {
   title = 'my-angular-app';
   user: any;
+  authData: AuthState | undefined;
+  // private routes
   privateRoutes: Routes[] = [
     { id: 1, route: '/post/index', title: 'Posts' },
     { id: 2, route: '/examples/learn', title: 'Learn angular 17' },
     { id: 3, route: '/examples/manage', title: 'Manage' },
-    { id: 4, route: '/examples/material-data', title: 'Material UI' },
+    { id: 4, route: '/examples/material-data', title: 'Angular material' },
+    { id: 5, route: '/image-gallery', title: 'Image gallery' }
   ];
-
+  // public routes
   publicRoutes: Routes[] = [
     { id: 1, route: '/login', title: 'Login' },
   ];
 
+  // Subscribe to the auth$ observable
+  private authSubscription: Subscription = new Subscription;
+
   constructor(
+    private store: Store,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.user = localStorage.getItem('user')
-    console.log('this.user', this.user)
+
+    // Subscribe to the auth$ observable
+    this.authSubscription = this.store.pipe(
+      select(selectAuthState),
+    ).subscribe((authState) => {
+      this.authData = authState;
+    });
   }
 
   display: any;
@@ -64,11 +83,11 @@ export class AppComponent {
   }
 
   onLogout() {
-    console.log('logout');
     localStorage.removeItem('user')
-    // setTimeout(() => {
-    //   window.location.reload()
-    // }, 1000)
+    this.store.dispatch(actions.logout());
     this.router.navigateByUrl('/login')
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000)
   }
 }

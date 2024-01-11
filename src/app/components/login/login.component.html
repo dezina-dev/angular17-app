@@ -12,9 +12,8 @@
 
         <div class="form-group">
             <label for="password">Password</label>
-            <textarea formControlName="password" id="password" type="text" [(ngModel)]="credentials.password"
+            <input formControlName="password" id="password" type="text" [(ngModel)]="credentials.password"
                 class="form-control">
-        </textarea>
             <div *ngIf="f['password'].touched && f['password'].invalid" class="alert alert-danger">
                 <div *ngIf="f['password'].errors && f['password'].errors['required']">Password is required.</div>
             </div>

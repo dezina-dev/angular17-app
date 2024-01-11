@@ -22,14 +22,13 @@ export interface Tile {
 })
 export class ManageComponent {
   tiles: Tile[] = [
-    { id: 1, cols: 2, rows: 1, color: 'lightblue', cardTitle: 'Shiba Inu', cardSubtitle: 'Small', imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
+    { id: 1, cols: 2, rows: 1, color: 'lightblue', cardTitle: 'Dog', cardSubtitle: 'Small', imageUrl: 'https://material.angular.io/assets/img/examples/shiba2.jpg' },
     { id: 2, cols: 1, rows: 2, color: 'lightgreen', cardTitle: 'Kitten', cardSubtitle: 'Cute', imageUrl: 'https://placekitten.com/300/200' },
     { id: 3, cols: 1, rows: 1, color: 'lightpink', cardTitle: 'Puppy', cardSubtitle: 'Adorable', imageUrl: 'https://wallpapers.com/images/featured/adorable-puppy-pictures-hjuvzpx69vvvlmtl.jpg' },
     { id: 4, cols: 2, rows: 1, color: '#DDBDF1', cardTitle: 'Sunset', cardSubtitle: 'Beautiful', imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT94sfC9VFe5ecvy6j_WAE_EN3-9vq7QaXFPA&usqp=CAU' },
   ];
 
   onLikeClick(tile: any) {
-    console.log('tile', tile)
     console.log('Like clicked!');
   }
 

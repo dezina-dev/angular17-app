@@ -1,0 +1,25 @@
+<h1>Gallery</h1>
+<mat-grid-list cols="4" rowHeight="2:2.1">
+    @for (photo of photos; track photo.id) {
+    <mat-grid-tile>
+        <mat-card class="example-card">
+
+            <lib-ngx-image-zoom [thumbImage]="photo.urls.small" [fullImage]="photo.urls.large" [magnification]="1"
+                [enableScrollZoom]="true" [enableLens]="true" [lensWidth]="200" (click)="openDialog(photo)">
+            </lib-ngx-image-zoom>
+
+            @if(photo.liked === true) {
+            <mat-card-actions>
+                <i class="bi bi-hand-thumbs-up-fill liked" title="liked" (click)="likePhoto(photo.id)"></i>
+                <i class="bi bi-hand-thumbs-down" title="dislike" (click)="dislikePhoto(photo.id)"></i>
+            </mat-card-actions>
+            } @else if(photo.liked === false) {
+            <mat-card-actions>
+                <i class="bi bi-hand-thumbs-down" title="dislike" (click)="dislikePhoto(photo.id)"></i>
+                <i class="bi bi-hand-thumbs-up" title="like" (click)="likePhoto(photo.id)"></i>
+            </mat-card-actions>
+            }
+        </mat-card>
+    </mat-grid-tile>
+    }
+</mat-grid-list>

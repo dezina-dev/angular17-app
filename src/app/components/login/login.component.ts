@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { SnackbarService } from '../../services/snackbar.service';
+import { Store, select } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import * as actions from '../../store/actions/auth.actions';
+import { selectAuthState } from '../../store/state/auth.state';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +24,8 @@ export class LoginComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
@@ -43,14 +48,8 @@ export class LoginComponent {
 
     if (this.form.value.email === 'user@test.com' && this.form.value.password === 'test123') {
       localStorage.setItem('user', this.form.value.email)
-      // setTimeout(() => {
-      //   window.location.reload()
-      // }, 1000)
+      this.store.dispatch(actions.login({ email: this.form.value.email, password: this.form.value.password }));
       this.router.navigateByUrl('/post/index')
-      // this.postService.update(this.id, this.form.value).subscribe((res:any) => {
-      //   console.log('Post updated successfully!');
-      //   this.router.navigateByUrl('/post/index')
-      // }) this.router.navigateByUrl('/post/index')
     }
     else {
 
