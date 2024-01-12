@@ -9,6 +9,8 @@ import {
   MatDialogTitle,
   MatDialogContent,
 } from '@angular/material/dialog'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as actions from '../../store/actions/image-gallery.actions';
@@ -19,12 +21,13 @@ import { DialogDataComponent } from '../dialog-data/dialog-data.component';
 @Component({
   selector: 'app-image-gallery',
   standalone: true,
-  imports: [MatIconModule, NgxImageZoomModule, MatGridListModule, MatCardModule],
+  imports: [MatIconModule, NgxImageZoomModule, MatGridListModule, MatCardModule, MatFormFieldModule, MatInputModule],
   templateUrl: './image-gallery.component.html',
   styleUrls: ['./image-gallery.component.css'],
 })
 export class ImageGalleryComponent implements OnInit, OnDestroy {
-  
+
+  originalPhotos: any[] = [];  // Keep a copy of the original photos
   photos: any[] = []; // Initialize with an empty array or the default value
   likedPhotos: string[] = [];
   dislikedPhotos: string[] = [];
@@ -33,27 +36,26 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
   private likedPhotosSubscription: Subscription = new Subscription;
   private dislikedPhotosSubscription: Subscription = new Subscription;
 
-  constructor(private store: Store, private imageGalleryService: ImageGalleryService, public dialog: MatDialog) {}
+  constructor(private store: Store, private imageGalleryService: ImageGalleryService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.store.dispatch(actions.displayPhotos());
 
-     // Subscribe to the photos$ observable
-     this.photosSubscription = this.store.pipe(
+    // Subscribe to the photos$ observable
+    this.photosSubscription = this.store.pipe(
       select(selectImageGallery),
       select((state) => state.photos)
     ).subscribe((photos) => {
       this.photos = photos;
-      console.log('Updated photos', this.photos);
+      this.originalPhotos = photos;
     });
 
-     // Subscribe to the likedPhotos$ observable
-     this.likedPhotosSubscription = this.store.pipe(
+    // Subscribe to the likedPhotos$ observable
+    this.likedPhotosSubscription = this.store.pipe(
       select(selectImageGallery),
       select((state) => state.likedPhotos)
     ).subscribe((item) => {
       this.likedPhotos = item;
-      console.log('Updated likedPhotos', this.likedPhotos);
     });
 
     this.dislikedPhotosSubscription = this.store.pipe(
@@ -61,7 +63,6 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
       select((state) => state.dislikedPhotos)
     ).subscribe((item) => {
       this.dislikedPhotos = item;
-      console.log('Updated dislikedPhotos', this.dislikedPhotos);
     });
 
   }
@@ -89,11 +90,21 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
 
   // Zoom image
   openDialog(photo: any) {
-    console.log('dialog data', photo)
     this.dialog.open(DialogDataComponent, {
       data: {
         imageUrl: photo.urls.raw,
       },
     });
   }
+
+  applyFilter(event: Event) {
+
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    if (filterValue === '') {
+      this.photos = this.originalPhotos;  // Reset to the original unfiltered photos
+    } else {
+      this.photos = this.originalPhotos.filter(photo => photo.alt_description.toLowerCase().includes(filterValue));
+    }
+  }
+
 }

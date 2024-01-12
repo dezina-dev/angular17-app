@@ -38,8 +38,10 @@ export class AppComponent {
     { id: 1, route: '/post/index', title: 'Posts' },
     { id: 2, route: '/examples/learn', title: 'Learn angular 17' },
     { id: 3, route: '/examples/manage', title: 'Manage' },
-    { id: 4, route: '/examples/material-data', title: 'Angular material' },
-    { id: 5, route: '/image-gallery', title: 'Image gallery' }
+    { id: 4, route: '/reactive-form', title: 'Reactive form' },
+    { id: 5, route: '/examples/material-data', title: 'Angular material' },
+    { id: 6, route: '/image-gallery', title: 'Image gallery' },
+    { id: 7, route: '/animations', title: 'Animations' },
   ];
   // public routes
   publicRoutes: Routes[] = [

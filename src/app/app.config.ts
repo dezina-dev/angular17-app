@@ -1,6 +1,6 @@
 // app.config.ts
 import { ApplicationConfig, importProvidersFrom, isDevMode } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
@@ -19,7 +19,13 @@ import { reducers } from './store/store';
 // inside the provideStore give the state and reducers - no need for ngModule
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    // provideRouter(routes),
+    provideRouter(
+      routes,
+      withViewTransitions(),
+      withComponentInputBinding(),
+      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })
+    ),
     provideHttpClient(),
     provideAnimations(),
     provideClientHydration(),
