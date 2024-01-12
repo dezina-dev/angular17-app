@@ -92,7 +92,7 @@ export class ImageGalleryComponent implements OnInit, OnDestroy {
     console.log('dialog data', photo)
     this.dialog.open(DialogDataComponent, {
       data: {
-        imageUrl: photo.urls.small,
+        imageUrl: photo.urls.raw,
       },
     });
   }

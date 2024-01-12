@@ -86,8 +86,5 @@ export class AppComponent {
     localStorage.removeItem('user')
     this.store.dispatch(actions.logout());
     this.router.navigateByUrl('/login')
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000)
   }
 }
