@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { IndexComponent } from "./post/index/index.component";
-import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
+import { LoginComponent } from './components/login/login.component';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as actions from '../app/store/actions/auth.actions';
@@ -27,6 +27,7 @@ export interface Routes {
     RouterOutlet,
     GoogleMapsModule,
     IndexComponent,
+    LoginComponent,
     RouterModule,]
 })
 export class AppComponent {
