@@ -20,8 +20,8 @@ export const routes: Routes = [
     { path: 'examples/material-data', component: MaterialPageComponent },
     { path: 'examples/manage', component: ManageComponent },
     { path: 'examples/learn', component: LearnAngularComponent },
-    { path: 'login', loadComponent: () => LoginComponent },
-    {path: 'image-gallery', loadComponent: () => ImageGalleryComponent},
+    { path: 'login', component: LoginComponent },
+    {path: 'image-gallery', component: ImageGalleryComponent},
     {path: 'reactive-form', component: ReactiveFormComponent},
-    {path: 'animations', loadComponent: () => AnimationsComponent}
+    {path: 'animations', component: AnimationsComponent}
 ];

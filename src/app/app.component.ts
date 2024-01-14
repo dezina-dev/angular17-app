@@ -35,7 +35,7 @@ export class AppComponent {
   authData: AuthState | undefined;
   // private routes
   privateRoutes: Routes[] = [
-    { id: 1, route: '/post/index', title: 'Posts' },
+    { id: 1, route: '/post/index', title: 'Post crud' },
     { id: 2, route: '/examples/learn', title: 'Learn angular 17' },
     { id: 3, route: '/examples/manage', title: 'Manage' },
     { id: 4, route: '/reactive-form', title: 'Reactive form' },

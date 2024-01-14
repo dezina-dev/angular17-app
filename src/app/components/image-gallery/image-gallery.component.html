@@ -2,18 +2,19 @@
 <mat-form-field>
     <mat-label>Search Image</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. any image words" #input>
-  </mat-form-field>
+</mat-form-field>
+@defer {
 <mat-grid-list cols="4" rowHeight="2.5:2.5">
     @for (photo of photos; track photo.id) {
     <mat-grid-tile>
         <mat-card class="example-card">
-            
+
             <lib-ngx-image-zoom [thumbImage]="photo.urls.small" [fullImage]="photo.urls.large" [magnification]="1"
                 [enableScrollZoom]="true" [enableLens]="true" [lensWidth]="200" (click)="openDialog(photo)">
             </lib-ngx-image-zoom>
             <div class="image-title">
                 {{ photo.alt_description }}
-              </div>
+            </div>
             @if(photo.liked === true) {
             <mat-card-actions>
                 <i class="bi bi-hand-thumbs-up-fill liked" title="liked" (click)="likePhoto(photo.id)"></i>
@@ -29,3 +30,11 @@
     </mat-grid-tile>
     }
 </mat-grid-list>
+} @placeholder (minimum 2000ms) {
+    <h2 class="text-center"> 
+        Loading...
+    </h2> 
+}
+@error {
+    <h2 class="text-center"> Loading of the component failed...</h2>
+}
