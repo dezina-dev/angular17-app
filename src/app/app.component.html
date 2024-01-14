@@ -66,30 +66,10 @@
             </li>
             }
           </ul>
-          }@else if (user) {
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            @for (route of privateRoutes; track route.id) {
-            <li class="nav-item">
-              <a routerLink={{route.route}} class="nav-link" class="btn btn-primary">{{route.title}}</a>
-            </li>
-            }
-          </ul>
-          }@else {
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            @for (route of publicRoutes; track route.id) {
-            <li class="nav-item">
-              <a routerLink={{route.route}} class="nav-link" class="btn btn-primary">{{route.title}}</a>
-            </li>
-            }
-          </ul>
           }
 
           <span class="navbar-text">
             @if(authData?.user?.email !== null) {
-            <button type="button" class="btn btn-primary" (click)="onLogout()">
-              Logout
-            </button>
-            } @else if (user) {
             <button type="button" class="btn btn-primary" (click)="onLogout()">
               Logout
             </button>
